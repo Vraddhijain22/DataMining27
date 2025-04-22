@@ -8,14 +8,14 @@ sap.ui.define([
     "use strict";
 
     return Controller.extend("app.datamining27.controller.DataMiningView", {
-        
-        onInit() {
+        onInit: function () {
             this._getData();
         },
+        
         _getData: function () {
-            let enititySet = "/ymin_enSet"
+            let entitySet = "/ymin_enSet"
             let oModel = this.getOwnerComponent().getModel();
-            oModel.read(enititySet, {
+            oModel.read(entitySet, {
                 success: (oData, response) => {
                     var oModelData = new sap.ui.model.json.JSONModel(oData.results);
                     this.getView().setModel(oModelData, "CustomerModel");
@@ -23,6 +23,27 @@ sap.ui.define([
                 error: () => { }
             })
         },
+
+        // onInit() {
+        //     this._getData()
+        // },
+        //     _getData:function(){
+        //         let oModel = this.getModel();
+        //         let entity = "/ymin_enSet";
+   
+        //         oModel.read(entity, {
+        //             success: (odata, resp) => {
+        //                let jModel= this.getModel("CustomerModel")
+        //                     jModel.setData(odata.results)
+        //                 // let oModelJs = new sap.ui.model.json.JSONModel(odata.results);
+        //                 // this.getView().setModel(oModelJs, "CustomerModel");
+        //             },
+        //             error: (error) => {
+        //                 console.error("Error reading data: ", error);
+        //                 // Additional error handling logic
+        //             }
+        //         });
+        //     },
 
             onFilter: function() {
                 let aFilter = [];

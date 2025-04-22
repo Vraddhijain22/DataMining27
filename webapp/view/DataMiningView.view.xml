@@ -1,4 +1,3 @@
-
 <mvc:View controllerName="app.datamining27.controller.DataMiningView"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
