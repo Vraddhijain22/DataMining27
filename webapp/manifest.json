@@ -80,6 +80,9 @@
         "dataSource": "mainService",
         "preload": true,
         "settings": {}
+      },
+      "CustomerModel":{
+        "type":"sap.ui.model.json.JSONModel"
       }
     },
     "resources": {

@@ -1,0 +1,28 @@
+
+<mvc:View controllerName="app.datamining27.controller.UpdateView"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form">
+
+    <Page id="idUpdate" title="{i18n>UpdateView}" showNavButton="true" navButtonPress="onView">
+
+        <f:SimpleForm editable="true" >
+            <Label text="{i18n>LocId}" required="true"></Label>
+            <Input id="iddata1" value="{CustomerModel>LocId}" enabled="false"></Input>
+            <Label text="{i18n>LocDesc}" required="true"></Label>
+            <Input id="iddata2" value="{CustomerModel>LocDesc}" enabled="false"></Input>
+            <Label text="{i18n>MiningResourceAllocated}" required="true"></Label>
+            <Input id="iddata3" value="{CustomerModel>MiningResourceAllocated}" enabled="false"></Input>
+            <Label text="{i18n>TotalCost}" ></Label>
+            <Input id="iddata4" value="{CustomerModel>TotalCost}"></Input>
+            <Label text="{i18n>ReportOfPossibleMineral}"></Label>
+            <Input id="iddata5" value="{CustomerModel>ReportOfPossibleMineral}"></Input>
+            <Label text="{i18n>NoOfDrills}" ></Label>
+            <Input id="iddata6" value="{CustomerModel>NoOfDrills}"></Input>
+            <Label text="{i18n>TypeOfMineral}" ></Label>
+            <Input id="iddata7" value="{CustomerModel>TypeOfMineral}"></Input>
+
+            <Button text="{i18n>Update}" press="onUpdateItem" type="Accept" icon="sap-icon://request"></Button>
+        </f:SimpleForm>
+    </Page>
+</mvc:View>

@@ -1,0 +1,34 @@
+<mvc:View controllerName="app.datamining27.controller.DetailView"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form">
+    <Page id="idDetail" title="{i18n>Detailtitle}" showNavButton="true" navButtonPress="onMasterView">
+        <f:SimpleForm editable="true" layout="ResponsiveGridLayout">
+           
+           
+<f:content>
+                            <Label text="{i18n>LocId}" required="true"></Label>
+                            <Text text="{CustomerModel>LocId}"></Text>
+                            <Label text="{i18n>LocDesc}" required="true"></Label>
+                            <Text  text="{CustomerModel>LocDesc}"></Text>
+                            <Label text="{i18n>MiningResourceAllocated}" required="true"></Label>
+                            <Text  text="{CustomerModel>MiningResourceAllocated}"></Text>
+                            <Label text="{i18n>TotalCost}" ></Label>
+                            <Text  text="{CustomerModel>TotalCost}"></Text>
+                            <Label text="{i18n>ReportOfPossibleMineral}"></Label>
+                            <Text  text="{CustomerModel>ReportOfPossibleMineral}"></Text>
+                            <Label text="{i18n>NoOfDrills}" ></Label>
+                            <Text  text="{CustomerModel>NoOfDrills}"></Text>
+                            <Label text="{i18n>TypeOfMineral}" ></Label>
+                            <Text  text="{CustomerModel>TypeOfMineral}"></Text>
+    </f:content>
+ 
+        </f:SimpleForm>
+        <footer>
+            <OverflowToolbar>
+                <ToolbarSpacer/>
+                <Button icon="sap-icon://edit" type="Critical" text="{i18n>Update}" press="onUpdate" width="200px"></Button>
+            </OverflowToolbar>
+        </footer>
+    </Page>
+</mvc:View>
