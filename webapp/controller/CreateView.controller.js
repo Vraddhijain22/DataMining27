@@ -9,7 +9,23 @@ sap.ui.define([
   
     return Controller.extend("app.datamining27.controller.CreateView", {
         onInit: function() {
-
+            let oView = this.getView();
+            let fieldIds =  ["LocIdInput", "LocDescInput", "MiningResourceAllocatedInput", "TotalCostInput", "ReportOfPossibleMineralInput", "NoOfDrillsInput", "TypeOfMineralInput" ];
+       
+            fieldIds.forEach(fieldId => {
+                oView.byId(fieldId).attachLiveChange(this.onSetNone, this);
+            });
+        },
+        
+        onSetNone: function (oEvent) {
+            oEvent.getSource().setValueState("None");
+        },
+        _clearFields: function () {
+            let oView = this.getView();
+            ["LocIdInput", "LocDescInput", "MiningResourceAllocatedInput", "TotalCostInput", "ReportOfPossibleMineralInput", "NoOfDrillsInput","TypeOfMineralInput" ].forEach(fieldId => {
+                oView.byId(fieldId).setValue("");
+                oView.byId(fieldId).setValueState("None");
+            });
         },
         onDataMiningView: function () {
             let oRouter = this.getOwnerComponent().getRouter();
@@ -35,8 +51,51 @@ sap.ui.define([
 
             sNoOfDrills=parseInt(sNoOfDrills)
 
-
-  
+            oLocId.setValueState("None");
+            oLocDesc.setValueState("None");
+            oMiningResourceAllocated.setValueState("None");
+            oTotalCost.setValueState("None");
+            oReportOfPossibleMineral.setValueState("None");
+            oNoOfDrills.setValueState("None");
+            oTypeOfMineral.setValueState("None");
+ 
+ 
+ 
+                let hasError = false;
+                if (!sLocId) {
+                    oLocId.setValueState("Error");
+                    hasError = true;
+                }
+                if (!sLocDesc) {
+                    oLocDesc.setValueState("Error");
+                    hasError = true;
+                }
+                if (!sMiningResourceAllocated) {
+                    oMiningResourceAllocated.setValueState("Error");
+                    hasError = true;
+                }
+                if (!sTotalCost) {
+                    oTotalCost.setValueState("Error");
+                    hasError = true;
+                }
+                if (!sReportOfPossibleMineral) {
+                    oReportOfPossibleMineral.setValueState("Error");
+                    hasError = true;
+                }
+                if (!sNoOfDrills) {
+                    oNoOfDrills.setValueState("Error");
+                    hasError = true;
+                }
+                if (!sTypeOfMineral) {
+                    oTypeOfMineral.setValueState("Error");
+                    hasError = true;
+                }
+ 
+                if (hasError) {
+                    MessageBox.error("Please fill in all the fields.");
+                    return;
+                }
+ 
             // var odate = new Date(sOdate).getTime();
             // let fdate = "/Date(" + odate + ")/";
   
@@ -67,6 +126,7 @@ sap.ui.define([
                             oReportOfPossibleMineral.setValue("")
                             oNoOfDrills.setValue("")
                             oTypeOfMineral.setValue("")
+                            location.reload()
   
                         }
                     })

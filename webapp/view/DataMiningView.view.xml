@@ -29,7 +29,7 @@
                     </comp:FilterItem>
                     <comp:FilterItem name="TypeOfMineral">
                         <comp:control>
-                            <Input id="onType" placeholder="Report" liveChange="onFilter"/>
+                            <Input id="onType" placeholder="Type of Mineral" liveChange="onFilter"/>
                         </comp:control>
                     </comp:FilterItem>
                 </comp:filterItems>

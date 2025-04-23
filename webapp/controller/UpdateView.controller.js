@@ -56,7 +56,7 @@ sap.ui.define([
    
      
           let oModel = this.getOwnerComponent().getModel();
-          let entity = "/ymin_enSet(LocId='" + key1 + "',LocDesc='" + key2 + "',MiningResourceAllocated='" + key3 + "')";
+          let entity = "/ymin_enSet(LocId='"+key1+"',LocDesc='"+key2+"',MiningResourceAllocated='"+key3+"')";
                                                              
    
           let updatedData = {
@@ -72,7 +72,7 @@ sap.ui.define([
                   MessageBox.success("Record Updated", {
                       onClose: function() {
                           var oRouter = this.getOwnerComponent().getRouter();
-                          oRouter.navTo("RouteDataminingView", {}, true);
+                          oRouter.navTo("RouteDataMiningView", {}, true);
                       }.bind(this)
                   });
               },
@@ -82,9 +82,8 @@ sap.ui.define([
           });
       },
       onView:function(){
-        let oRoute = this.getOwnerComponent().getRouter();
-              //oRoute.initialize();
-              oRoute.navTo("RouteDetailView");
+        let oRouter = this.getOwnerComponent().getRouter();
+        oRouter.navTo("RouteDataMiningView")
        
       }
     });

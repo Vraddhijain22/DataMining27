@@ -49,7 +49,7 @@ sap.ui.define([
                 index: id
             });
         },
-        onDataminingView: function () {
+        onDataMiningView: function () {
             let oRouter = this.getOwnerComponent().getRouter();
             oRouter.navTo("RouteDataMiningView")
         }
