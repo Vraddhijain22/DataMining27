@@ -1,10 +1,11 @@
 sap.ui.define([
     "./BaseController",
     "sap/ui/core/mvc/Controller",
-    "sap/m/MessageBox"
+    "sap/m/MessageBox",
+    "sap/ui/model/json/JSONModel"
   ],
   
-  function(BaseController, Controller, MessageBox) {
+  function(BaseController, Controller, MessageBox,JSONModel) {
     "use strict";
   
     return Controller.extend("app.datamining27.controller.CreateView", {
@@ -13,7 +14,7 @@ sap.ui.define([
             let fieldIds =  ["LocIdInput", "LocDescInput", "MiningResourceAllocatedInput", "TotalCostInput", "ReportOfPossibleMineralInput", "NoOfDrillsInput", "TypeOfMineralInput" ];
        
             fieldIds.forEach(fieldId => {
-                oView.byId(fieldId).attachLiveChange(this.onSetNone, this);
+                oView.byId(fieldId).attachChange(this.onSetNone, this);
             });
         },
         
@@ -28,6 +29,7 @@ sap.ui.define([
             });
         },
         onDataMiningView: function () {
+            this._clearFields()
             let oRouter = this.getOwnerComponent().getRouter();
             oRouter.navTo("RouteDataMiningView")
         },
@@ -42,12 +44,12 @@ sap.ui.define([
   
             // Get values
             let sLocId = oLocId.getValue();
-            let sLocDesc = oLocDesc.getValue();
-            let sMiningResourceAllocated = oMiningResourceAllocated.getValue();
+            let sLocDesc = oLocDesc.getValue().toUpperCase();
+            let sMiningResourceAllocated = oMiningResourceAllocated.getValue().toUpperCase();
             let sTotalCost = oTotalCost.getValue();
             let sReportOfPossibleMineral = oReportOfPossibleMineral.getValue();
             var sNoOfDrills = oNoOfDrills.getValue();
-            let sTypeOfMineral = oTypeOfMineral.getValue();
+            let sTypeOfMineral = oTypeOfMineral.getValue().toUpperCase();
 
             sNoOfDrills=parseInt(sNoOfDrills)
 
@@ -117,6 +119,7 @@ sap.ui.define([
                 success: function() {
                     MessageBox.success("Entry published Successfully", {
                         onClose: function() {
+                            that._clearFields()
                             let oRouter = that.getOwnerComponent().getRouter()
                             oRouter.navTo("RouteDataMiningView")
                             oLocId.setValue("")
@@ -136,6 +139,46 @@ sap.ui.define([
                 }
                 
             });
-        }
+        },
+        onF4Help: function (oEvent) {
+            // let myInputField where the popup actually popped up
+            this.inputField = oEvent.getSource().getId();
+            let enititySet = `/ymin_enSet`;
+            let oModel = this.getOwnerComponent().getModel();
+     
+            // Fetch data from OData model
+            oModel.read(enititySet, {
+              success: (oData) => {
+                let deepcopy = JSON.parse(JSON.stringify(oData.results));
+                let oModelFrag = new JSONModel({ newSuppSet: deepcopy });
+     
+                if (!this.oDialog) {
+                  this.oDialog = sap.ui.core.Fragment.load({
+                    fragmentName: "app.datamining27.fragments.popUp",
+                    controller: this
+                  }).then((dialog) => {
+                    this.oDialog = dialog;
+                    this.getView().addDependent(this.oDialog);
+                    this.getView().setModel(oModelFrag, "FragmentModel");
+                    this.oDialog.open();
+                  });
+                } else {
+                  this.oDialog.open();
+                }
+              },
+              error: (oError) => {
+                // Handle error
+                sap.m.MessageToast.show("Error fetching data");
+              }
+            });
+          },
+     
+          onConfirmSupplier: function (oEvent) {
+            let oSelectedItems = oEvent.getParameter("selectedItem");
+            let sValue = oSelectedItems.getProperty("info");
+            let onInput = sap.ui.getCore().byId(this.inputField);
+            onInput.setValue(sValue);
+          }
+ 
     });
   });

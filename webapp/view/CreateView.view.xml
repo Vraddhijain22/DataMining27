@@ -6,19 +6,27 @@
     <Page id="idCreatePage" title="Create Data" showNavButton="true" navButtonPress="onDataMiningView">
         <content>
             <f:SimpleForm id="createForm" editable="true" layout="ResponsiveGridLayout">
-                <Label text="{i18n>Location Id}" required="true"/>
-                <Input id="LocIdInput" value="{LocId}" width="250px" />
-                <Label text="{i18n>Location Description}" required="true"/>
+                <Label text="{i18n>LocationId}" required="true"/>
+                <Input id="LocIdInput" showValueHelp="true" valueHelpRequest="onF4Help" value="{LocId}" width="250px" />
+                <Label text="{i18n>LocationDescription}" required="true"/>
                 <Input id="LocDescInput" value="{LocDesc}" width="250px" />
-                <Label text="{i18n>Mining Resource Allocated}" required="true"/>
+                <Label text="{i18n>MiningResourceAllocated}" required="true"/>
                 <Input id="MiningResourceAllocatedInput" value="{MiningResourceAllocated}" width="250px" />
-                <Label text="{i18n>Total Cost}"/>
+                <Label text="{i18n>TotalCost}"/>
                 <Input id="TotalCostInput" value="{TotalCost}" width="250px" />
-                <Label text="{i18n>Report Of Possible Mineral}"/>
-                <Input id="ReportOfPossibleMineralInput" value="{ReportOfPossibleMineral}" width="250px" />
-                <Label text="{i18n>Number Of Drills}"/>
+                <Label text="{i18n>ReportOfPossibleMineral}"/>
+                <ComboBox id="ReportOfPossibleMineralInput" width="250px">
+                    <items>
+                        <core:Item key="1" text="HIGH POTENTIAL"></core:Item>
+                        <core:Item key="2" text="LOW POTENTIAL"></core:Item>
+                        <core:Item key="3" text="MODERATE POTENTIAL"></core:Item>
+                    </items>
+                
+                </ComboBox>
+                <!-- <Input id="ReportOfPossibleMineralInput" value="{ReportOfPossibleMineral}" width="250px" /> -->
+                <Label text="{i18n>NumberOfDrills}"/>
                 <Input id="NoOfDrillsInput" value="{NoOfDrills}" width="250px" />
-                <Label text="{i18n>Type Of Mineral}"/>
+                <Label text="{i18n>TypeOfMineral}"/>
                 <Input id="TypeOfMineralInput" value="{TypeOfMineral}" width="250px"/>
             </f:SimpleForm>
         </content>

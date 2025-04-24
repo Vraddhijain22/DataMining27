@@ -61,10 +61,11 @@ sap.ui.define([
    
           let updatedData = {
               TotalCost: parm.TotalCost,
-              ReportOfPossibleMineral: parm.ReportOfPossibleMineral,
+              ReportOfPossibleMineral: parm.ReportOfPossibleMineral.toUpperCase(),
               NoOfDrills: NoDrill,
-              TypeOfMineral: parm.TypeOfMineral
+              TypeOfMineral: parm.TypeOfMineral.toUpperCase()
           };
+          
           console.log("Payload being sent:", updatedData);
           oModel.update(entity, updatedData, {
               method: "PATCH",
@@ -84,6 +85,7 @@ sap.ui.define([
       onView:function(){
         let oRouter = this.getOwnerComponent().getRouter();
         oRouter.navTo("RouteDataMiningView")
+        location.reload()
        
       }
     });

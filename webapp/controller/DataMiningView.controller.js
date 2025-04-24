@@ -3,19 +3,37 @@ sap.ui.define([
     "./BaseController",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
+    "sap/ui/model/Sorter",
     "sap/m/MessageBox"
-], (Controller, Filter, FilterOperator, MessageBox) => {
+], (Controller, Filter, FilterOperator, Sorter, MessageBox) => {
     "use strict";
 
     return Controller.extend("app.datamining27.controller.DataMiningView", {
-        onInit: function () {
+        onInit() {
+ 
+            let oRouter = this.getOwnerComponent().getRouter();
+            oRouter.attachRoutePatternMatched(this.onRouteMatched, this);
+            let oRoute = oRouter.getRoute("RouteDataMiningView");
+            oRoute.attachPatternMatched(this._onPatternMatched, this);
+            // this._getData();
+        },
+
+        onRouteMatched: function (oEvent) {
+            let index = oEvent.getParameter("arguments").index;
+            let sPath = "CustomerModel>/" + index;
+            let oView = this.getView();
+            oView.bindElement(sPath);
+
+        },
+        _onPatternMatched: function () {
             this._getData();
         },
-        
+
+
         _getData: function () {
-            let entitySet = "/ymin_enSet"
+            let enititySet = `/ymin_enSet`;
             let oModel = this.getOwnerComponent().getModel();
-            oModel.read(entitySet, {
+            oModel.read(enititySet, {
                 success: (oData, response) => {
                     var oModelData = new sap.ui.model.json.JSONModel(oData.results);
                     this.getView().setModel(oModelData, "CustomerModel");
@@ -128,6 +146,17 @@ sap.ui.define([
                 this.onInit(); // Call the existing onInit function to refresh the page
             },
             
+            onSort: function() {
+                        if (!this.bDescending) {
+                        this.bDescending = false;
+                        }
+                        var oSorter = new Sorter("LocId", this.bDescending);
+                        var oList = this.getView().byId("table");
+                        var oBinding = oList.getBinding("items");
+                        oBinding.sort(oSorter);
+                        this.bDescending = !this.bDescending;
+                        },
+                
             onRowSelection: function (oEvent) {
                 console.log(oEvent)
                            
